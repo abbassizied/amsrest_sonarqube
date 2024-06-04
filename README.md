@@ -1,0 +1,1 @@
+# amsrest_sonarqube
