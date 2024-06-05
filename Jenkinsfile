@@ -10,19 +10,14 @@ pipeline {
                 sh 'mvn clean install -DskipTests'  
             }
         }
-
+	    
         stage('Analyse Sonarqube') {
             steps {
-                sh '''
-					mvn sonar:sonar \
-					-Dsonar.projectKey=ams_rest \
-					-Dsonar.projectName="ams_rest" \
-					-Dsonar.host.url=http://sonarqube-1:9000 
-                '''
+	        withSonarQubeEnv(installationName: 'sq1') { 
+		    sh 'mvn clean org.sonarsource.scanner.maven:sonar-maven-plugin:6.0.0.4432:sonar'
+	        }
             }
         }
-
-  
     }
 }
 
